@@ -13,7 +13,7 @@ import { AccordionsComponent } from './views/base/accordion/accordions.component
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -32,6 +32,11 @@ const routes: Routes = [
         path: 'theme',
         loadChildren: () =>
           import('./views/theme/theme.module').then((m) => m.ThemeModule)
+      },
+       {
+        path: 'patient',
+        loadChildren: () =>
+          import('./views/patient-management/patient.module').then((m) => m.PatientModule)
       },
       {
         path: 'base',

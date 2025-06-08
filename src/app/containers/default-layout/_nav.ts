@@ -12,21 +12,21 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: 'Theme'
+    name: 'Patient Management'
   },
   {
-    name: 'Colors',
-    url: '/theme/colors',
-    iconComponent: { name: 'cil-drop' }
+    name: 'Patient Management',
+    url: '/patient/list',
+    iconComponent: { name: 'cil-pencil' }
   },
-  {
+ /*  {
     name: 'Typography',
     url: '/theme/typography',
     linkProps: { fragment: 'someAnchor' },
     iconComponent: { name: 'cil-pencil' }
-  },
+  }, */
   {
-    name: 'Components',
+    name: 'Doctors Management',
     title: true
   },
   {
@@ -45,22 +45,6 @@ export const navItems: INavData[] = [
       {
         name: 'Cards',
         url: '/base/cards'
-      },
-      {
-        name: 'Carousel',
-        url: '/base/carousel'
-      },
-      {
-        name: 'Collapse',
-        url: '/base/collapse'
-      },
-      {
-        name: 'List Group',
-        url: '/base/list-group'
-      },
-      {
-        name: 'Navs & Tabs',
-        url: '/base/navs'
       },
       {
         name: 'Pagination',
@@ -189,76 +173,8 @@ export const navItems: INavData[] = [
   
 
   {
-    name: 'Icons',
-    iconComponent: { name: 'cil-star' },
-    url: '/icons',
-    children: [
-      {
-        name: 'CoreUI Free',
-        url: '/icons/coreui-icons',
-        badge: {
-          color: 'success',
-          text: 'FREE'
-        }
-      },
-      {
-        name: 'CoreUI Flags',
-        url: '/icons/flags'
-      },
-      {
-        name: 'CoreUI Brands',
-        url: '/icons/brands'
-      }
-    ]
-  },
-  {
-    name: 'Notifications',
-    url: '/notifications',
-    iconComponent: { name: 'cil-bell' },
-    children: [
-      {
-        name: 'Alerts',
-        url: '/notifications/alerts'
-      },
-      {
-        name: 'Badges',
-        url: '/notifications/badges'
-      },
-      {
-        name: 'Modal',
-        url: '/notifications/modal'
-      },
-      {
-        name: 'Toast',
-        url: '/notifications/toasts'
-      }
-    ]
-  },
-  {
-    name: 'System ',
-    url: '/system',
-    iconComponent: { name: 'cil-settings' },
-
-    children: [
-      {
-        name: 'Profile',
-        url: '/system/profile'
-      },
-
-      {
-        name: 'Company',
-        url: '/system/company'
-      }
-
-    ]
-    // badge: {
-    //   color: 'info',
-    //   // text: 'NEW'
-    // }
-  },
-  {
     title: true,
-    name: 'Extras'
+    name: 'Pharmacies Management'
   },
   {
     name: 'Pages',

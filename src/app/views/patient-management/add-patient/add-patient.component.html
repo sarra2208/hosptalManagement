@@ -1,0 +1,41 @@
+<div class="modal show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="patientForm" (ngSubmit)="submit()">
+        <div class="modal-header">
+<h5 class="modal-title">
+  {{ patient ? 'Modify Patient' : 'Add New Patient' }}
+</h5>          <button type="button" class="btn-close" (click)="cancel()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label>First Name</label>
+            <input type="text" class="form-control" formControlName="firstName">
+          </div>
+          <div class="mb-3">
+            <label>Last Name</label>
+            <input type="text" class="form-control" formControlName="lastName">
+          </div>
+          <div class="mb-3">
+            <label>Age</label>
+            <input type="number" class="form-control" formControlName="age">
+          </div>
+          <div class="mb-3">
+            <label>Assigned Doctor</label>
+            <select class="form-select" formControlName="assignedDoctor">
+              <option *ngFor="let doctor of doctors" [value]="doctor">{{ doctor }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label>Last Appointment Date</label>
+            <input type="date" class="form-control" formControlName="lastAppointment">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add Patient</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

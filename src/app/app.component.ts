@@ -12,7 +12,7 @@ import { Title } from '@angular/platform-browser';
 
 export class AppComponent implements OnInit {
   
-  title = 'CoreUI Free Angular Admin Template';
+  title = 'Clinics Management';
   public account = {  
     password: null  
   };  
