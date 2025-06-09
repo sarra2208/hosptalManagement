@@ -1,23 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PatientService } from '../../../services/patient.service';
+
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { Patient } from '../patient';
 
 @Component({
   selector: 'app-list-patient',
   templateUrl: './list-patient.component.html',
   styleUrls: ['./list-patient.component.scss']
 })
-export class ListPatientComponent {
+export class ListPatientComponent implements OnInit {
   showAddModal = false;
- editingPatient: any = null;
- selectedPatient: any = null;
-  patients = [
-    { id:1,firstName: 'John', lastName: 'Doe', age: 45, assignedDoctor: 'Dr. Smith', lastAppointment: new Date('2024-12-01') },
-    { id:2,firstName: 'Jane', lastName: 'Doe', age: 38, assignedDoctor: 'Dr. Adams', lastAppointment: new Date('2024-11-21') }
-  ];
+  editingPatient: Patient | null = null;
+  selectedPatient: Patient | null = null;
+  activeActionIndex: number | null = null;
+
+  patients: Patient[] = [];
 
   currentPage = 1;
   pageSize = 5;
+
+  constructor(private patientService: PatientService) {}
+
+  ngOnInit() {
+    this.loadPatients();
+  }
+
+  loadPatients() {
+    this.patientService.getPatients().subscribe({
+      next: (data: Patient[]) => {
+        this.patients = data;
+      },
+      error: (err) => {
+        console.error('Error loading patients', err);
+      }
+    });
+  }
 
   get totalPages() {
     return Math.ceil(this.patients.length / this.pageSize);
@@ -25,6 +44,10 @@ export class ListPatientComponent {
 
   get totalPagesArray() {
     return Array(this.totalPages).fill(0).map((_, i) => i + 1);
+  }
+
+  toggleActions(index: number) {
+    this.activeActionIndex = this.activeActionIndex === index ? null : index;
   }
 
   get paginatedPatients() {
@@ -39,90 +62,67 @@ export class ListPatientComponent {
   }
 
   openAddModal() {
+    this.editingPatient = null; // clear edit state for adding
     this.showAddModal = true;
   }
 
-  
-
-  onPatientAdded(newPatient: any) {
-    newPatient.lastAppointment = new Date(newPatient.lastAppointment);
-    this.patients.push(newPatient);
-    this.goToPage(this.totalPages); // Go to last page
-  }
-
-  deletePatient(patient: any) {
-    if (confirm(`Delete ${patient.firstName} ${patient.lastName}?`)) {
-      this.patients = this.patients.filter(p => p !== patient);
+  onPatientSaved(data: Patient) {
+    if (data.id) {
+      // Modify existing patient
+      const index = this.patients.findIndex(p => p.id === data.id);
+      if (index !== -1) {
+        this.patients[index] = data;
+      }
+    } else {
+      // Add new patient - assume backend returns created patient with id
+      this.patients.push(data);
     }
-  }
-
-
-
-  downloadFile(patient: any) {
-  this.selectedPatient = patient;
-
-  // Wait for the view to update
-  setTimeout(() => {
-    const element = document.getElementById('pdf-content');
-    if (!element) {
-      console.error('Element not found');
-      return;
-    }
-
-    html2canvas(element, {
-      scale: 2,
-      useCORS: true, // if you're loading images or fonts externally
-      logging: true
-    }).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-      pdf.addImage(imgData, 'PNG', 0, 10, pdfWidth, pdfHeight);
-      pdf.save(`${patient.firstName}_${patient.lastName}_Info.pdf`);
-    }).catch((error) => {
-      console.error('Canvas rendering failed', error);
-    });
-  }, 200); // give Angular time to render
-}
-  
-
-  openEditModal(patient: any) {
-    this.editingPatient = { ...patient }; // clone to avoid live editing
-    this.showAddModal = true;
+    this.closeAddModal();
   }
 
   closeAddModal() {
     this.showAddModal = false;
   }
 
-  onPatientSaved(data: any) {
-    if (data.id) {
-      // Modify existing
-      const index = this.patients.findIndex(p => p.id === data.id);
-      if (index !== -1) {
-        this.patients[index] = { ...data, lastAppointment: new Date(data.lastAppointment) };
-      }
-    } else {
-      // Add new
-      const newId = Math.max(...this.patients.map(p => p.id || 0), 0) + 1;
-      this.patients.push({ ...data, id: newId, lastAppointment: new Date(data.lastAppointment) });
+  modifyPatient(patient: Patient) {
+    this.editingPatient = { ...patient };
+    this.showAddModal = true;
+  }
+
+  deletePatient(patient: Patient) {
+    if (confirm(`Delete ${patient.firstname} ${patient.lastname}?`)) {
+      this.patientService.deletePatient(patient.id!).subscribe(() => {
+        this.patients = this.patients.filter(p => p.id !== patient.id);
+      });
     }
-
-    this.closeAddModal();
   }
 
-  modifyPatient(patient: any) {
-    this.openEditModal(patient);
+  downloadFile(patient: Patient) {
+    this.selectedPatient = patient;
+
+    setTimeout(() => {
+      const element = document.getElementById('pdf-content');
+      if (!element) {
+        console.error('Element not found');
+        return;
+      }
+
+      html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: true
+      }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'PNG', 0, 10, pdfWidth, pdfHeight);
+        pdf.save(`${patient.firstname}_${patient.lastname}_Info.pdf`);
+      }).catch(error => {
+        console.error('Canvas rendering failed', error);
+      });
+    }, 200);
   }
-}
-interface Patient {
-  id:number;
-  firstName: string;
-  lastName: string;
-  age: number;
-  assignedDoctor: string;
-  lastAppointment: Date;
 }

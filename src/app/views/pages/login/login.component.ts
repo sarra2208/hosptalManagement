@@ -1,5 +1,8 @@
 import { Component, AfterContentInit, ChangeDetectorRef, OnInit } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { LoginServiceService } from '../../../services/login-service.service';
+
 
 @Component({
   selector: 'app-login',
@@ -7,12 +10,17 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements AfterContentInit {
+    employee = {
+    email: ''
+  };
+
+  account = {
+    password: ''
+  };
   strengthChanged($event: number) {
     throw new Error('Method not implemented.');
   }
-  public account = {
-    password: null as unknown as string // Set password to null as string
-  };
+
   public baseColor = '#FFF';
   public barLabel = 'Password strength:'; // Remove type declaration
   public myColors = ['#DD2C00', '#FF6D00', '#FFD600', '#AEEA00', '#00C853'];
@@ -20,8 +28,24 @@ export class LoginComponent implements AfterContentInit {
   public strengthLabels = ['(Useless)', '(Weak)', '(Normal)', '(Strong)', '(Great!)'];
   public strength: number | undefined; // Add a union type of number and undefined
 
-  constructor(private modalService: NgbModal, private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private loginService:LoginServiceService,private modalService: NgbModal, private changeDetectorRef: ChangeDetectorRef,private router: Router) { }
+    login() {
+    const email = this.employee.email;
+    const password = this.account.password;
 
+    // Example: Call your backend login API
+    this.loginService.login(email,password).subscribe({
+      next: (res) => {
+        console.log('Login success:', res);
+        localStorage.setItem('token', res.token); // store JWT token
+        this.router.navigate(['/dashboard']); // navigate after login
+      },
+      error: (err) => {
+        console.error('Login failed:', err);
+        alert('Invalid credentials');
+      }
+    });
+  }
   openModal() {
     const modalRef = this.modalService.open(MyModalComponent);
     modalRef.componentInstance.name = 'Success';
@@ -31,7 +55,6 @@ export class LoginComponent implements AfterContentInit {
     this.changeDetectorRef.detectChanges();
   }
 
-  employee: any = {};
 }
 
 @Component({

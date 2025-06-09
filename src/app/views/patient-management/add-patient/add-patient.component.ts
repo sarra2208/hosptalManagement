@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PatientService } from '../../../services/patient.service';
 
 @Component({
   selector: 'app-add-patient',
@@ -13,15 +14,17 @@ export class AddPatientComponent implements OnInit {
 
   patientForm: FormGroup;
 
-  doctors = ['Dr. Smith', 'Dr. Adams', 'Dr. Brown'];
-
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private patientService: PatientService
+  ) {
     this.patientForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      age: [null, [Validators.required, Validators.min(0)]],
-      assignedDoctor: [null, Validators.required],
-      lastAppointment: ['', Validators.required]
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      birthdate: ['', Validators.required],
+      gender: ['MALE', Validators.required],
+      mobile: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
@@ -29,24 +32,38 @@ export class AddPatientComponent implements OnInit {
     if (this.patient) {
       this.patientForm.patchValue({
         ...this.patient,
-        lastAppointment: this.formatDate(this.patient.lastAppointment)
+        birthdate: this.formatDate(this.patient.birthdate),
       });
     }
   }
 
-  private formatDate(date: any): string {
+  private formatDate(date: string): string {
     const d = new Date(date);
     return d.toISOString().substring(0, 10);
   }
 
   submit() {
     if (this.patientForm.valid) {
-      const formValue = {
-        ...this.patientForm.value,
-        id: this.patient?.id || null
+      const formValue = this.patientForm.value;
+
+      const payload = {
+        ...formValue,
+        id: this.patient?.id || null,
       };
-      this.patientSaved.emit(formValue);
-      this.close.emit();
+
+      const saveObservable = this.patient?.id
+        ? this.patientService.addPatient(payload)
+        : this.patientService.addPatient(payload);
+
+      saveObservable.subscribe({
+        next: (res) => {
+          this.patientSaved.emit(res);
+          this.close.emit();
+        },
+        error: (err) => {
+          console.error('Failed to save patient', err);
+        },
+      });
     }
   }
 

@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <button class="btn btn-primary" (click)="openAddModal()">Add New Patient</button>
+    <button class="btn btn-primary btn-sm" (click)="openAddModal()">Add New Patient</button>
   </div>
 
   <div class="table-responsive">
@@ -9,23 +9,40 @@
         <tr>
           <th>First Name</th>
           <th>Last Name</th>
-          <th>Age</th>
-          <th>Assigned Doctor</th>
-          <th>Last Appointment</th>
+          <th>Birthdate</th>
+          <th>Gender</th>
+          <th>Mobile</th>
+          <th>Email</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let patient of paginatedPatients">
-          <td>{{ patient.firstName }}</td>
-          <td>{{ patient.lastName }}</td>
-          <td>{{ patient.age }}</td>
-          <td>{{ patient.assignedDoctor }}</td>
-          <td>{{ patient.lastAppointment | date }}</td>
+        <tr *ngFor="let patient of paginatedPatients; let i = index">
+          <td>{{ patient.firstname }}</td>
+          <td>{{ patient.lastname }}</td>
+          <td>{{ patient.birthdate | date:'yyyy-MM-dd' }}</td>
+          <td>{{ patient.gender }}</td>
+          <td>{{ patient.mobile || '-' }}</td>
+          <td>{{ patient.email || '-' }}</td>
           <td>
-            <button class="btn btn-sm btn-danger me-1" (click)="deletePatient(patient)">Delete</button>
-            <button class="btn btn-sm btn-warning me-1" (click)="modifyPatient(patient)">Modify</button>
-            <button class="btn btn-sm btn-info" (click)="downloadFile(patient)">Download</button>
+            <button 
+              class="btn btn-warning btn-sm me-1" 
+              title="Modify" 
+              (click)="modifyPatient(patient)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button 
+              class="btn btn-danger btn-sm me-1" 
+              title="Delete" 
+              (click)="deletePatient(patient)">
+              <i class="bi bi-trash"></i>
+            </button>
+            <button 
+              class="btn btn-info btn-sm" 
+              title="Download" 
+              (click)="downloadFile(patient)">
+              <i class="bi bi-download"></i>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -50,50 +67,32 @@
     </ul>
   </nav>
 
- <app-add-patient
-  *ngIf="showAddModal"
-  [patient]="editingPatient"
-  (patientSaved)="onPatientSaved($event)"
-  (close)="closeAddModal()">
-</app-add-patient>
-</div>
+  <app-add-patient
+    *ngIf="showAddModal"
+    [patient]="editingPatient"
+    (patientSaved)="onPatientSaved($event)"
+    (close)="closeAddModal()"
+  ></app-add-patient>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div
-  id="pdf-content"
-  style="
-    position: absolute;
-    left: -9999px;
-    top: 0;
-    width: 600px;
-    background: white;
-    padding: 20px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    border: 1px solid #ccc;
-  "
->
-  <h2>Patient Information</h2>
-  <hr />
-  <p><strong>First Name:</strong> {{ selectedPatient?.firstName }}</p>
-  <p><strong>Last Name:</strong> {{ selectedPatient?.lastName }}</p>
-  <p><strong>Age:</strong> {{ selectedPatient?.age }}</p>
-  <p><strong>Assigned Doctor:</strong> {{ selectedPatient?.assignedDoctor }}</p>
-  <p><strong>Last Appointment:</strong> {{ selectedPatient?.lastAppointment | date: 'longDate' }}</p>
+  <!-- Hidden div for PDF generation -->
+  <div
+    id="pdf-content"
+    style="
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+      width: 500px;
+      background: white;
+      padding: 10px;
+      box-sizing: border-box;
+    "
+  >
+    <h3>Patient Info</h3>
+    <p><strong>First Name:</strong> {{ selectedPatient?.firstname }}</p>
+    <p><strong>Last Name:</strong> {{ selectedPatient?.lastname }}</p>
+    <p><strong>Birthdate:</strong> {{ selectedPatient?.birthdate | date:'yyyy-MM-dd' }}</p>
+    <p><strong>Gender:</strong> {{ selectedPatient?.gender }}</p>
+    <p><strong>Mobile:</strong> {{ selectedPatient?.mobile }}</p>
+    <p><strong>Email:</strong> {{ selectedPatient?.email }}</p>
+  </div>
 </div>

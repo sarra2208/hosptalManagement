@@ -59,6 +59,7 @@ import {
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { PasswordStrengthMeterComponent } from './password-strength-meter/password-strength-meter.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 // import { ProfileComponent } from './views/profile/profile.component';
 // import { ProfileviewComponent } from './views/profile/profileview/profileview.component';
@@ -80,6 +81,7 @@ const APP_CONTAINERS = [
   declarations: [AppComponent, ...APP_CONTAINERS, PasswordStrengthMeterComponent],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     AvatarModule,
