@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { getStyle } from '@coreui/utils';
 import { ChartjsComponent } from '@coreui/angular-chartjs';
+import {StatsService} from "../../../services/stats.service"
 
 @Component({
   selector: 'app-widgets-dropdown',
@@ -19,7 +20,8 @@ import { ChartjsComponent } from '@coreui/angular-chartjs';
 export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
   constructor(
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    public StatService:StatsService
   ) {}
 
   data: any[] = [];
@@ -42,6 +44,7 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
     'March',
     'April'
   ];
+  statsFromDb:any;
   datasets = [
     [{
       label: 'My First dataset',
@@ -116,6 +119,9 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
   };
 
   ngOnInit(): void {
+    this.StatService.getStats().subscribe(res=>{
+      this.statsFromDb = res;
+    })
     this.setData();
   }
 

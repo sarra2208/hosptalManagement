@@ -6,7 +6,7 @@
       title="DOCTORS"
     >
       <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
-        2
+        {{statsFromDb.numberStuff}}
        
       </ng-template>
       <ng-template cTemplateId="widgetActionTemplate">
@@ -39,7 +39,7 @@
       color="info"
     >
       <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
-        <span>200</span>
+        <span>{{statsFromDb.numberPatient}}</span>
        
       </ng-template>
       <ng-template cTemplateId="widgetActionTemplate">
@@ -67,7 +67,8 @@
       color="warning"
     >
       <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
-        <span>2</span>
+        <span>        {{statsFromDb.numberAppointments}}
+</span>
        
       </ng-template>
       <ng-template cTemplateId="widgetActionTemplate">
@@ -95,7 +96,7 @@
       color="danger"
     >
       <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
-        <span>1</span>
+        <span> {{statsFromDb.numberClinics}}</span>
       
       </ng-template>
       <ng-template cTemplateId="widgetActionTemplate">

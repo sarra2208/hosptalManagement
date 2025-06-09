@@ -2,29 +2,52 @@ import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
+    title: true,
+    name: 'Welcome to the app'
+  },
+  
+  {
     name: 'Dashboard',
     url: '/dashboard',
     iconComponent: { name: 'cil-speedometer' },
-    badge: {
+    /* badge: {
       color: 'info',
       text: 'NEW'
-    }
+    } */
   },
   {
     title: true,
-    name: 'Patient Management'
+    name: 'Clinics Management'
   },
   {
-    name: 'Patient Management',
+    name: 'Clinic ',
     url: '/patient/list',
-    iconComponent: { name: 'cil-pencil' }
+    iconComponent: { name: 'cil-star' }
   },
- /*  {
+  {
+    title: true,
+    name: 'Stuff Management'
+  },
+  {
+    name: 'Stuff ',
+    url: '/patient/list',
+    iconComponent: { name: 'cil-user' }
+  },
+  {
+    title: true,
+    name: 'Appointements '
+  },
+  {
+    name: 'Appointement ',
+    url: '/patient/list',
+    iconComponent: { name: 'cil-calendar' }
+  }
+ /* /*  {
     name: 'Typography',
     url: '/theme/typography',
     linkProps: { fragment: 'someAnchor' },
     iconComponent: { name: 'cil-pencil' }
-  }, */
+  }, 
   {
     name: 'Doctors Management',
     title: true
@@ -203,7 +226,7 @@ export const navItems: INavData[] = [
       }
     ]
   },
-
+ */
 
   // {
   //   name: 'Profile',
