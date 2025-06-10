@@ -44,11 +44,11 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: 'Stuff Management'
+    name: 'Staff Management'
   },
   {
-    name: 'Stuff ',
-    url: '/patient/list',
+    name: 'Staff ',
+    url: '/stuff/list',
     iconComponent: { name: 'cil-user' }
   },
   {

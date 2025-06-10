@@ -60,10 +60,7 @@ import {
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { PasswordStrengthMeterComponent } from './password-strength-meter/password-strength-meter.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ClinicListComponent } from './views/clinic-management/clinic-list/clinic-list.component';
-import { AddClinicComponent } from './views/clinic-management/add-clinic/add-clinic.component';
-import { DepartmentListComponent } from './views/departement-management/department-list/department-list.component';
-import { AddDepartmentComponent } from './views/departement-management/add-department/add-department.component';
+
 
 // import { ProfileComponent } from './views/profile/profile.component';
 // import { ProfileviewComponent } from './views/profile/profileview/profileview.component';

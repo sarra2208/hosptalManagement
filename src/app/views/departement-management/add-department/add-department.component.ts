@@ -40,25 +40,35 @@ export class AddDepartmentComponent implements OnInit {
   }
 
   submit(): void {
-    if (this.departmentForm.valid) {
-      const payload: Department = {
-        ...this.departmentForm.value,
-        id: this.department?.id
-      };
+  if (this.departmentForm.valid) {
+    const formValue = this.departmentForm.value;
 
-      const req$ = payload.id
-        ? this.departmentService.update(payload)
-        : this.departmentService.create(payload);
+    const payload: Department = {
+      id: this.department?.id,
+      name: formValue.name,
+      description: formValue.description,
+      clinic: {
+        id: formValue.clinicId,
+        name: '',
+        address: '',
+        phone: '',
+        email: ''
+      }
+    };
 
-      req$.subscribe({
-        next: (res) => {
-          this.departmentSaved.emit(res);
-          this.close.emit();
-        },
-        error: (err) => console.error('Save failed', err)
-      });
-    }
+    const req$ = payload.id
+      ? this.departmentService.update(payload)
+      : this.departmentService.create(payload);
+
+    req$.subscribe({
+      next: (res) => {
+        this.departmentSaved.emit(res);
+        this.close.emit();
+      },
+      error: (err) => console.error('Save failed', err)
+    });
   }
+}
 
   cancel(): void {
     this.close.emit();

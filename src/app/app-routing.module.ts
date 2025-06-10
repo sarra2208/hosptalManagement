@@ -51,6 +51,11 @@ const routes: Routes = [
           import('./views/departement-management/departement.module').then((m) => m.DepartmentModule)
       },
       {
+        path: 'stuff',
+        loadChildren: () =>
+          import('./views/stuff-management/stuff.module').then((m) => m.StuffModule)
+      },
+      {
         path: 'clinic',
         loadChildren: () =>
           import('./views/clinic-management/clinic.module').then((m) => m.ClinicModule)

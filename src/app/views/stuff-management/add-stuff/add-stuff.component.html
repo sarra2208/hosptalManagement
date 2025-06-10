@@ -1,0 +1,57 @@
+
+<div class="modal d-block" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ Stuff?.id ? 'Edit stuff' : 'Add New stuff' }}</h5>
+        <button type="button" class="close" (click)="close.emit()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <form (ngSubmit)="saveStuff()">
+        <div class="modal-body">
+          <div class="form-group mb-2">
+            <label>Nom</label>
+            <input type="text" class="form-control" [(ngModel)]="form.nom" name="nom" required>
+          </div>
+          <div class="form-group mb-2">
+            <label>Prénom</label>
+            <input type="text" class="form-control" [(ngModel)]="form.prenom" name="prenom" required>
+          </div>
+          <div class="form-group mb-2">
+            <label>Role</label>
+            <select class="form-control" [(ngModel)]="form.role" name="role" required>
+              <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+            </select>
+          </div>
+          <div class="form-group mb-2">
+            <label>Email</label>
+            <input type="email" class="form-control" [(ngModel)]="form.email" name="email">
+          </div>
+          <div class="form-group mb-2">
+            <label>Téléphone</label>
+            <input type="text" class="form-control" [(ngModel)]="form.telephone" name="telephone">
+          </div>
+          <div class="form-group mb-2">
+            <label>Adresse</label>
+            <input type="text" class="form-control" [(ngModel)]="form.adresse" name="adresse">
+          </div>
+          <div class="form-group mb-2">
+            <label>Date d'embauche</label>
+            <input type="date" class="form-control" [(ngModel)]="form.hireDate" name="hireDate">
+          </div>
+          <div class="form-group mb-2">
+            <label>Service</label>
+            <select class="form-control" [(ngModel)]="form.service" name="service" required>
+              <option *ngFor="let service of services" [ngValue]="service">{{ service.name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save</button>
+          <button type="button" class="btn btn-secondary" (click)="close.emit()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

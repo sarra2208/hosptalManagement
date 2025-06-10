@@ -1,0 +1,14 @@
+.table-responsive {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  table-layout: auto;
+}
+
+td, th {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}

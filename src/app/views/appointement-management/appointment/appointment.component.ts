@@ -1,24 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ClinicService } from '../../clinic-management/clinic.service';
+import { StuffService } from '../../stuff-management/stuff.service';
 
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
   styleUrls: ['./appointment.component.scss']
 })
-export class AppointmentComponent {
-    step = 1;
+export class AppointmentComponent implements OnInit {
+  constructor(private cliniService : ClinicService,private suffService:StuffService){
 
-  clinics = [
-    { name: 'City Health Center', address: '123 Main St', description: 'Modern, fully equipped' },
-    { name: 'Green Valley Clinic', address: '45 Oak Dr', description: 'Family-oriented care' },
-    { name: 'Downtown Medical', address: '789 Center Rd', description: '24/7 availability' },
-  ];
+  }
+  ngOnInit(): void {
+    this.cliniService.getClinics().subscribe(res=>{
+      this.clinics = res;
+    })
+  }
+    step = 1; 
 
-  doctors = [
-    { name: 'Alice Smith', specialty: 'Cardiologist' },
-    { name: 'John Doe', specialty: 'General Practitioner' },
-    { name: 'Linda Lee', specialty: 'Dermatologist' }
-  ];
+  clinics:any;
+
+  doctors :any;
 
   selectedClinic: any;
   selectedDoctor: any;
@@ -27,6 +29,9 @@ export class AppointmentComponent {
   timeSlots: string[] = [];
 
   selectClinic(clinic: any) {
+    this.suffService.getAllStaff().subscribe(res=>{
+      this.doctors = res;
+    })
     this.selectedClinic = clinic;
     this.step = 2;
   }
