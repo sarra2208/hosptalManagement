@@ -1,0 +1,73 @@
+.appointment-container {
+  background: #f2f2f2;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.stepper {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+
+  .step {
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: #ccc;
+    color: white;
+
+    &.active {
+      background: #1977cc;
+      font-weight: bold;
+    }
+  }
+}
+
+.step-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  .card {
+    background: #e9f4fb;
+    padding: 1rem;
+    border-radius: 10px;
+    width: calc(33% - 1rem);
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      background: #b6e2fa;
+    }
+  }
+}
+
+.time-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 1rem;
+
+  button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    background: #ddd;
+    cursor: pointer;
+
+    &.selected {
+      background: #1977cc;
+      color: white;
+    }
+
+    &:hover {
+      background: #ccc;
+    }
+  }
+}

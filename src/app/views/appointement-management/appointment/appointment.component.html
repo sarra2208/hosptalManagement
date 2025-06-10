@@ -1,0 +1,50 @@
+<!-- appointement.component.html -->
+<div class="container-fluid appointment-container">
+  <div class="stepper">
+    <div class="step" [class.active]="step === 1">1. Choose Clinic</div>
+    <div class="step" [class.active]="step === 2">2. Choose Doctor</div>
+    <div class="step" [class.active]="step === 3">3. Choose Date & Time</div>
+    <div class="step" [class.active]="step === 4">4. Confirm</div>
+  </div>
+
+  <div *ngIf="step === 1" class="step-content">
+    <h4>Select a Clinic</h4>
+    <div class="card-grid">
+      <div class="card" *ngFor="let clinic of clinics" (click)="selectClinic(clinic)">
+        <h5>{{ clinic.name }}</h5>
+        <p>{{ clinic.address }}</p>
+        <p>{{ clinic.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="step === 2" class="step-content">
+    <h4>Select a Doctor</h4>
+    <div class="card-grid">
+      <div class="card" *ngFor="let doctor of doctors" (click)="selectDoctor(doctor)">
+        <h5>Dr. {{ doctor.name }}</h5>
+        <p>{{ doctor.specialty }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="step === 3" class="step-content">
+    <h4>Select a Date</h4>
+    <input type="date" [(ngModel)]="selectedDate" (change)="generateTimeSlots()">
+    <h4>Select a Time</h4>
+    <div class="time-slots">
+      <button *ngFor="let time of timeSlots" (click)="selectTime(time)" [class.selected]="selectedTime === time">
+        {{ time }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="step === 4" class="step-content">
+    <h4>Confirm Appointment</h4>
+    <p><strong>Clinic:</strong> {{ selectedClinic?.name }}</p>
+    <p><strong>Doctor:</strong> Dr. {{ selectedDoctor?.name }}</p>
+    <p><strong>Date:</strong> {{ selectedDate }}</p>
+    <p><strong>Time:</strong> {{ selectedTime }}</p>
+    <button (click)="confirmAppointment()">Confirm</button>
+  </div>
+</div>

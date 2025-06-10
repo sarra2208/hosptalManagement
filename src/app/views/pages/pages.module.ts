@@ -11,13 +11,15 @@ import { IconModule } from '@coreui/icons-angular';
 
 import { FormsModule } from '@angular/forms';
 import { Ng9PasswordStrengthBarModule } from 'ng9-password-strength-bar';
+import { NewUserComponent } from './new-user/new-user.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
     Page404Component,
-    Page500Component
+    Page500Component,
+    NewUserComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,39 @@
+<div class="modal show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="departmentForm" (ngSubmit)="submit()">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            {{ department ? 'Edit Department' : 'Add Department' }}
+          </h5>
+          <button type="button" class="btn-close" (click)="cancel()"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label>Name</label>
+            <input type="text" class="form-control" formControlName="name" />
+          </div>
+          <div class="mb-3">
+            <label>Description</label>
+            <textarea class="form-control" formControlName="description"></textarea>
+          </div>
+          <div class="mb-3">
+            <label>Clinic</label>
+            <select class="form-select" formControlName="clinicId">
+              <option [ngValue]="null">Select Clinic</option>
+              <option *ngFor="let c of clinics" [value]="c.id">{{ c.name }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            {{ department ? 'Save Changes' : 'Add Department' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

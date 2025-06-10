@@ -17,11 +17,29 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
+    name: 'Patient Management'
+  },
+  {
+    name: 'Patient ',
+    url: '/patient/list',
+    iconComponent: { name: 'cil-star' }
+  },
+  {
+    title: true,
     name: 'Clinics Management'
   },
   {
     name: 'Clinic ',
-    url: '/patient/list',
+    url: '/clinic/list',
+    iconComponent: { name: 'cil-star' }
+  },
+  {
+    title: true,
+    name: 'Departement Management'
+  },
+  {
+    name: 'Departement ',
+    url: '/departement/list',
     iconComponent: { name: 'cil-star' }
   },
   {
@@ -38,8 +56,13 @@ export const navItems: INavData[] = [
     name: 'Appointements '
   },
   {
+    name: 'Book An Appointement ',
+    url: '/appointement/book',
+    iconComponent: { name: 'cil-calendar' }
+  },
+  {
     name: 'Appointement ',
-    url: '/patient/list',
+    url: '/appointement/list',
     iconComponent: { name: 'cil-calendar' }
   }
  /* /*  {

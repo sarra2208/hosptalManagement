@@ -1,0 +1,42 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <button class="btn btn-primary btn-sm" (click)="openAddModal()">Add New Clinic</button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered bg-light">
+      <thead class="table-light">
+        <tr>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let clinic of clinics">
+          <td>{{ clinic.name }}</td>
+          <td>{{ clinic.address }}</td>
+          <td>{{ clinic.phone }}</td>
+          <td>{{ clinic.email }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm me-1" (click)="modifyClinic(clinic)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteClinic(clinic)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-add-clinic
+    *ngIf="showAddModal"
+    [clinic]="editingClinic"
+    (clinicSaved)="onClinicSaved($event)"
+    (close)="closeAddModal()"
+  ></app-add-clinic>
+</div>

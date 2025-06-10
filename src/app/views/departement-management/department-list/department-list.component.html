@@ -1,0 +1,39 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <button class="btn btn-primary btn-sm" (click)="openAddModal()">Add Department</button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered bg-light">
+      <thead class="table-light">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Clinic</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dept of departments">
+        <td>{{ dept.name }}</td>
+        <td>{{ dept.description }}</td>
+        <td>{{ dept.clinic?.name }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-1" (click)="editDepartment(dept)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteDepartment(dept)">
+              <i class="bi bi-trash"></i>
+            </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-add-department
+    *ngIf="showModal"
+    [department]="editingDepartment"
+    (departmentSaved)="onSaved($event)"
+    (close)="onClose()"
+  ></app-add-department>
+</div>

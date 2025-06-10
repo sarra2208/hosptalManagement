@@ -1,0 +1,94 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- IMAGE CONTAINER -->
+    <div class="col-lg-6 col-md-6 d-none d-md-block infinity-image-container"></div>
+
+    <!-- FORM CONTAINER -->
+    <div class="col-lg-6 col-md-6 infinity-form-container">
+      <div class="col-lg-9 col-md-12 col-sm-9 col-xs-12 infinity-form">
+        <div class="text-center mb-4">
+          <h4>Create a new account</h4>
+        </div>
+
+        <form class="px-3" (ngSubmit)="register()">
+          <!-- Email Input -->
+          <div class="form-input">
+            <span><i class="fa fa-envelope"></i></span>
+            <div class="form-group">
+              <input
+                required
+                pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+                id="email"
+                type="text"
+                class="form-control"
+                placeholder="Email Address"
+                name="email"
+                [(ngModel)]="user.email"
+                #email="ngModel"
+              />
+              <div class="help-block" *ngIf="email.errors?.['required'] && email.touched">
+                Email is required
+              </div>
+              <div class="help-block" *ngIf="email.errors?.['pattern'] && email.touched">
+                Email is invalid
+              </div>
+            </div>
+          </div>
+
+          <!-- Password Input -->
+          <div class="form-input">
+            <span><i class="fa fa-lock"></i></span>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Enter password"
+              [(ngModel)]="user.password"
+              #password="ngModel"
+              minlength="5"
+              maxlength="50"
+              required
+            />
+            <ng9-password-strength-bar
+              [passwordToCheck]="user.password"
+              [barLabel]="barLabel"
+              [barColors]="myColors"
+              [baseColor]="baseColor"
+              [strengthLabels]="strengthLabels"
+              [customThresholds]="thresholds"
+              (onStrengthChanged)="strengthChanged($event)"
+            >
+            </ng9-password-strength-bar>
+          </div>
+
+          <!-- Role Select -->
+          <div class="form-input">
+            <span><i class="fa fa-user-tag"></i></span>
+            <select
+              class="form-control"
+              name="role"
+              [(ngModel)]="user.role"
+              required
+              aria-label="Select role"
+            >
+              <option value="staff">Staff</option>
+              <option value="patient">Patient</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+
+          <!-- Register Button -->
+          <div class="mb-3 mt-3">
+            <button type="submit" class="btn btn-block">Register</button>
+          </div>
+
+          <div class="text-center mb-5 text-white">
+            Already have an account?
+            <a class="register-link" routerLink="/login">Login here</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

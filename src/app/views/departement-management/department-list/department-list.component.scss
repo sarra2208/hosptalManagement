@@ -1,0 +1,25 @@
+.table-responsive {
+  overflow-x: auto; /* allow horizontal scrolling only if needed */
+}
+
+table {
+  width: 100%;
+  table-layout: auto; /* or fixed */
+}
+
+td, th {
+  white-space: normal; /* allow wrapping */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+#pdf-content {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: 500px; /* or some reasonable width */
+  background: white;
+  padding: 10px;
+  box-sizing: border-box;
+  /* Don't set display:none */
+}

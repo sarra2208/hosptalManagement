@@ -14,5 +14,11 @@ export class LoginServiceService {
       username: email,
       password: password
     })};
-  
+ public register(email:string,password:string,role:string){
+  return this.http.post<any>('http://localhost:8082/auth/register', {
+      username: email,
+      password: password,
+      role:role
+    })
+ }
 }

@@ -9,6 +9,7 @@ import { RegisterComponent } from './views/pages/register/register.component';
 // import { ProfileviewComponent } from './views/profile/profileview/profileview.component';
 // import { ProfileeditComponent } from './views/profile/profileedit/profileedit.component';
 import { AccordionsComponent } from './views/base/accordion/accordions.component';
+import { NewUserComponent } from './views/pages/new-user/new-user.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
+
   {
     path: '',
     component: DefaultLayoutComponent,
@@ -34,9 +36,24 @@ const routes: Routes = [
           import('./views/theme/theme.module').then((m) => m.ThemeModule)
       },
        {
+        path: 'appointement',
+        loadChildren: () =>
+          import('./views/appointement-management/appointement.module').then((m) => m.AppointementModule)
+      },
+       {
         path: 'patient',
         loadChildren: () =>
           import('./views/patient-management/patient.module').then((m) => m.PatientModule)
+      },
+      {
+        path: 'departement',
+        loadChildren: () =>
+          import('./views/departement-management/departement.module').then((m) => m.DepartmentModule)
+      },
+      {
+        path: 'clinic',
+        loadChildren: () =>
+          import('./views/clinic-management/clinic.module').then((m) => m.ClinicModule)
       },
       {
         path: 'base',
@@ -123,6 +140,13 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     component: RegisterComponent,
+    data: {
+      title: 'Register Page'
+    }
+  },
+   {
+    path: 'register',
+    component: NewUserComponent,
     data: {
       title: 'Register Page'
     }
