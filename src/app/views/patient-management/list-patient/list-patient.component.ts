@@ -15,7 +15,7 @@ export class ListPatientComponent implements OnInit {
   editingPatient: Patient | null = null;
   selectedPatient: Patient | null = null;
   activeActionIndex: number | null = null;
-
+  role : any = '';
   patients: Patient[] = [];
 
   currentPage = 1;
@@ -25,6 +25,7 @@ export class ListPatientComponent implements OnInit {
 
   ngOnInit() {
     this.loadPatients();
+    this.role = localStorage.getItem("role");
   }
 
   loadPatients() {

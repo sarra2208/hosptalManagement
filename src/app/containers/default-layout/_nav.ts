@@ -10,6 +10,7 @@ export const navItems: INavData[] = [
     name: 'Dashboard',
     url: '/dashboard',
     iconComponent: { name: 'cil-speedometer' },
+    roles: ['admin']
     /* badge: {
       color: 'info',
       text: 'NEW'
@@ -17,53 +18,68 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: 'Patient Management'
+    name: 'Patient Management',
+    roles: ['admin', 'patient', 'staff']
   },
   {
     name: 'Patient ',
     url: '/patient/list',
-    iconComponent: { name: 'cil-star' }
+    iconComponent: { name: 'cil-star' },
+    roles: ['admin', 'patient', 'staff']
+
   },
   {
     title: true,
-    name: 'Clinics Management'
+    name: 'Clinics Management',
+    roles: ['admin', 'patient', 'staff']
+
   },
   {
     name: 'Clinic ',
     url: '/clinic/list',
-    iconComponent: { name: 'cil-star' }
+    iconComponent: { name: 'cil-star' },
+    roles: ['admin', 'patient', 'staff']
+
   },
   {
     title: true,
-    name: 'Departement Management'
+    name: 'Departement Management',
+    roles: ['admin', 'patient', 'staff']
+
   },
   {
     name: 'Departement ',
     url: '/departement/list',
-    iconComponent: { name: 'cil-star' }
+    iconComponent: { name: 'cil-star' },
+    roles: ['admin', 'patient', 'staff']
   },
   {
     title: true,
-    name: 'Staff Management'
+    name: 'Staff Management',
+    roles: ['admin', 'patient', 'staff']
   },
   {
     name: 'Staff ',
     url: '/stuff/list',
-    iconComponent: { name: 'cil-user' }
+    iconComponent: { name: 'cil-user' },
+    roles: ['admin', 'patient', 'staff']
   },
   {
     title: true,
-    name: 'Appointements '
+    name: 'Appointements ',
+    roles: ['admin', 'patient', 'staff']
   },
   {
     name: 'Book An Appointement ',
     url: '/appointement/book',
-    iconComponent: { name: 'cil-calendar' }
+    iconComponent: { name: 'cil-calendar' },
+    roles: ['admin', 'patient']
   },
   {
     name: 'Appointement ',
     url: '/appointement/list',
-    iconComponent: { name: 'cil-calendar' }
+    iconComponent: { name: 'cil-calendar' },
+    roles: ['admin', 'patient', 'staff']
   }
  /* /*  {
     name: 'Typography',

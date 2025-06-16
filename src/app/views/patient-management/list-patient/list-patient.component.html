@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
+  <div *ngIf="role === 'admin'|| role === 'staff' " class="d-flex justify-content-between align-items-center mb-3">
     <button class="btn btn-primary btn-sm" (click)="openAddModal()">Add New Patient</button>
   </div>
 
@@ -24,14 +24,15 @@
           <td>{{ patient.gender }}</td>
           <td>{{ patient.mobile || '-' }}</td>
           <td>{{ patient.email || '-' }}</td>
-          <td>
+          <td >
             <button 
               class="btn btn-warning btn-sm me-1" 
               title="Modify" 
               (click)="modifyPatient(patient)">
               <i class="bi bi-pencil"></i>
             </button>
-            <button 
+            <button
+            *ngIf="role === 'admin'|| role === 'staff' " 
               class="btn btn-danger btn-sm me-1" 
               title="Delete" 
               (click)="deletePatient(patient)">
@@ -40,6 +41,14 @@
             <button 
               class="btn btn-info btn-sm" 
               title="Download" 
+              (click)="downloadFile(patient)">
+              <i class="bi bi-download"></i>
+            </button>
+            
+            <button 
+            *ngIf="role === 'staff' "
+              class="btn btn-info btn-sm" 
+              title="Send PR" 
               (click)="downloadFile(patient)">
               <i class="bi bi-download"></i>
             </button>

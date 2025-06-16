@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClinicService } from '../../clinic-management/clinic.service';
 import { StuffService } from '../../stuff-management/stuff.service';
+import { Appointment } from '../appointment';
 
 @Component({
   selector: 'app-appointment',
@@ -56,6 +57,8 @@ export class AppointmentComponent implements OnInit {
   }
 
   confirmAppointment() {
+     let ap : Appointment  ;
+    
     alert(`Appointment confirmed:\nClinic: ${this.selectedClinic.name}\nDoctor: Dr. ${this.selectedDoctor.name}\nDate: ${this.selectedDate}\nTime: ${this.selectedTime}`);
   }
 

@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
+  <div *ngIf="role === 'admin'" class="d-flex justify-content-between align-items-center mb-3">
     <button class="btn btn-primary btn-sm" (click)="openAddModal()">Add New Clinic</button>
   </div>
 
@@ -11,7 +11,7 @@
           <th>Address</th>
           <th>Phone</th>
           <th>Email</th>
-          <th>Actions</th>
+          <th *ngIf="role === 'admin'">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -20,7 +20,7 @@
           <td>{{ clinic.address }}</td>
           <td>{{ clinic.phone }}</td>
           <td>{{ clinic.email }}</td>
-          <td>
+          <td *ngIf="role === 'admin'" >
             <button class="btn btn-warning btn-sm me-1" (click)="modifyClinic(clinic)">
               <i class="bi bi-pencil"></i>
             </button>

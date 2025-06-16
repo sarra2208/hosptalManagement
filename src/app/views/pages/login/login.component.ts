@@ -37,8 +37,13 @@ export class LoginComponent implements AfterContentInit {
     this.loginService.login(email,password).subscribe({
       next: (res) => {
         console.log('Login success:', res);
-        localStorage.setItem('token', res.token); // store JWT token
-        this.router.navigate(['/dashboard']); // navigate after login
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('role',res?.user?.role) 
+        if (res?.user?.role!="admin") {
+                 this.router.navigate(['/clinic/list']);
+        }else{// store JWT token
+        this.router.navigate(['/dashboard']);
+        } // navigate after login
       },
       error: (err) => {
         console.error('Login failed:', err);

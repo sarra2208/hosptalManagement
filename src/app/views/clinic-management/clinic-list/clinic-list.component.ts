@@ -11,10 +11,12 @@ export class ClinicListComponent implements OnInit {
   clinics: Clinic[] = [];
   showAddModal = false;
   editingClinic: Clinic | null = null;
+  role: any ="";
 
   constructor(private clinicService: ClinicService) {}
 
   ngOnInit(): void {
+    this.role = localStorage.getItem("role");
     this.loadClinics();
   }
 

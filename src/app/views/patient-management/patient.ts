@@ -8,4 +8,5 @@ export interface Patient {
   email: string;
   assignedDoctor: string;
   lastAppointment: Date;
+  
 }

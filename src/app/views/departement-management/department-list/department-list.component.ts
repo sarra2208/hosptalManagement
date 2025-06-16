@@ -9,6 +9,7 @@ import { Department } from '../departement';
 })
 export class DepartmentListComponent implements OnInit {
   departments: Department[] = [];
+  role : any = '';
   editingDepartment: Department | null = null;
   showModal = false;
 
@@ -16,6 +17,7 @@ export class DepartmentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDepartments();
+    this.role = localStorage.getItem("role");
   }
 
   loadDepartments(): void {

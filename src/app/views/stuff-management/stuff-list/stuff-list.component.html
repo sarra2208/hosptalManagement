@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
+  <div *ngIf="role === 'admin'" class="d-flex justify-content-between align-items-center mb-3">
     <button class="btn btn-primary btn-sm" (click)="openAddModal()">Add New stuff</button>
   </div>
 
@@ -15,7 +15,7 @@
           <th>Adresse</th>
           <th>Date Embauche</th>
           <th>Service</th>
-          <th>Actions</th>
+          <th *ngIf="role === 'admin'">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -28,7 +28,7 @@
           <td>{{ stuff.adresse }}</td>
           <td>{{ stuff.hireDate | date:'yyyy-MM-dd' }}</td>
           <td>{{ stuff.service?.name }}</td>
-          <td>
+          <td *ngIf="role === 'admin'">
             <button class="btn btn-warning btn-sm me-1" (click)="editStuff(stuff)">
               <i class="bi bi-pencil"></i>
             </button>

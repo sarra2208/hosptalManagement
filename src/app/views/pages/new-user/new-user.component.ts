@@ -42,7 +42,13 @@ export class NewUserComponent implements AfterContentInit {
       },
       error: (err) => {
         console.error('Registration failed:', err);
+        if(err.status==200){
+        alert('Registration successful! You can now log in.');
+        this.router.navigate(['/login']); // redirect to login after registration
+        }
+        else{
         alert('Registration failed: ' + (err.error?.message || 'Unknown error'));
+        }
       }
     });
   }

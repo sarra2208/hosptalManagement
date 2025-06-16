@@ -9,6 +9,7 @@ import { Stuff } from '../stuff';
 })
 export class StuffListComponent implements OnInit {
   StuffList: Stuff[] = [];
+  role : any = '';
   showAddModal = false;
   editingStuff: Stuff | null = null;
 
@@ -16,6 +17,7 @@ export class StuffListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadStuff();
+    this.role = localStorage.getItem("role")
   }
 
   loadStuff() {
