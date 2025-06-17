@@ -39,16 +39,17 @@
               <i class="bi bi-trash"></i>
             </button>
             <button 
+              *ngIf="role === 'staff' "
               class="btn btn-info btn-sm me-1" 
-              title="Download" 
-              (click)="downloadFile(patient)">
+              title="Send Prescription" 
+              (click)="openPrescriptionModal(patient)">
               <i class="bi bi-chat-dots"></i>
             </button>
             
             <button 
-            *ngIf="role === 'staff' "
+            
               class="btn btn-info btn-sm me-1" 
-              title="Send Prescription" 
+              title="Download" 
               (click)="downloadFile(patient)">
               <i class="bi bi-download"></i>
             </button>
@@ -90,6 +91,21 @@
     (patientSaved)="onPatientSaved($event)"
     (close)="closeAddModal()"
   ></app-add-patient>
+  
+  
+  <div class="modal fade" tabindex="-1" [ngClass]="{'show d-block': showPrescriptionModal}" style="background: rgba(0,0,0,0.5);">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Prescription</h5>
+        <button type="button" class="btn-close" (click)="closePrescriptionModal()"></button>
+      </div>
+      <div class="modal-body">
+        <app-prescription-modal (close)="closePrescriptionModal()" [patient]="selectedPatient"></app-prescription-modal>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- Hidden div for PDF generation -->
   <div

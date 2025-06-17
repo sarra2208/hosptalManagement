@@ -7,6 +7,9 @@ import { Patient } from '../views/patient-management/patient';
 })
 export class PatientService {
 
+
+
+
   constructor(private http:HttpClient) { }
 getPatients() {
   const token = localStorage.getItem('token') || '';
@@ -14,6 +17,16 @@ getPatients() {
 
   return this.http.get<Patient[]>('http://localhost:8082/api/v0/patient/listPatients', { headers }); // example endpoint
 }
+  sendPrescription(email: any, items: string[]) {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+
+const payload = {
+      email: email,
+      items: items
+    };
+    return this.http.post(`http://localhost:8082/api/v0/patient/sendPR`, payload,{headers});
+  }
 
 deletePatient(id: string) {
   return this.http.delete(`/api/patients/${id}`);

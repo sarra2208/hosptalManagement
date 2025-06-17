@@ -7,7 +7,8 @@ import { AddPatientComponent } from './add-patient/add-patient.component';
 import { ListPatientComponent } from './list-patient/list-patient.component';
 import { OutilPatientComponent } from './outil-patient/outil-patient.component';
 import { PatientRoutingModule } from './patient-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PrescriptionModalComponent } from './prescription-modal/prescription-modal.component';
 
 
 
@@ -22,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     UtilitiesModule,
     IconModule,
     NavModule,
+    FormsModule,
     TabsModule,
     ReactiveFormsModule,
     
@@ -29,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AddPatientComponent,
     ListPatientComponent,
-    OutilPatientComponent 
+    OutilPatientComponent,
+    PrescriptionModalComponent 
   ]
 })
 export class PatientModule {

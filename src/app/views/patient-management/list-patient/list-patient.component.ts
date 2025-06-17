@@ -23,6 +23,16 @@ export class ListPatientComponent implements OnInit {
   pageSize = 5;
 
   constructor(private patientService: PatientService,private appointementService :AppointementService ) {}
+showPrescriptionModal = false;
+
+openPrescriptionModal(patient: any) {
+  this.selectedPatient = patient;
+  this.showPrescriptionModal = true;
+}
+
+closePrescriptionModal() {
+  this.showPrescriptionModal = false;
+}
 
   ngOnInit() {
     this.loadPatients();
