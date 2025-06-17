@@ -1,7 +1,7 @@
-import { Patient } from "../patient-management/patient";
 import { Stuff } from "../stuff-management/stuff";
 
-export interface Appointment {
+
+export class Appointment {
    id: number;
    date: string;
    heure: string;
@@ -9,5 +9,25 @@ export interface Appointment {
    note: string;
    state: string;
    staff: Stuff;
-   patient: Patient;
+   patient: any;
+
+   constructor(
+    id: number,
+    date: string,
+    heure: string,
+    description: string,
+    note: string,
+    state: string,
+    staff: Stuff,
+    patient: string
+  ) {
+    this.id = id;
+    this.date = date;
+    this.heure = heure;
+    this.description = description;
+    this.note = note;
+    this.state = state;
+    this.staff = staff;
+    this.patient = patient;
+  }
 }

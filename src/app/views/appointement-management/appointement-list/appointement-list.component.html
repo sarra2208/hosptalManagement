@@ -1,1 +1,42 @@
-<p>appointement-list works!</p>
+<div class="container mt-4">
+
+
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered bg-light">
+      <thead class="table-light">
+        <tr>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Description</th>
+          <th>Note</th>
+          <th>State</th>
+          <th>Staff</th>
+          <th>Patient</th>
+          <th *ngIf="role === 'admin'">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let app of appointments">
+          <td>{{ app.date }}</td>
+          <td>{{ app.heure }}</td>
+          <td>{{ app.description }}</td>
+          <td>{{ app.note }}</td>
+          <td>{{ app.state }}</td>
+          <td>DR. {{ app.staff?.nom }}</td>
+           {{ app.patient?.firstname || '' }} {{ app.patient?.lastname || '' }}
+          <span *ngIf="!app.patient">N/A</span>
+          <td *ngIf="role === 'admin'">
+            <button class="btn btn-warning btn-sm me-1" (click)="editAppointment(app)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteAppointment(app)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  
+  </div>
+</div>

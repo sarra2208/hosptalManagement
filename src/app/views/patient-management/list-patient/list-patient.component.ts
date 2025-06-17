@@ -4,6 +4,7 @@ import { PatientService } from '../../../services/patient.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Patient } from '../patient';
+import { AppointementService } from '../../appointement-management/appointement.service';
 
 @Component({
   selector: 'app-list-patient',
@@ -21,13 +22,32 @@ export class ListPatientComponent implements OnInit {
   currentPage = 1;
   pageSize = 5;
 
-  constructor(private patientService: PatientService) {}
+  constructor(private patientService: PatientService,private appointementService :AppointementService ) {}
 
   ngOnInit() {
     this.loadPatients();
     this.role = localStorage.getItem("role");
   }
-
+sendReminderEmail(patient: any) {
+  // Assuming patient object has an 'id' or similar to get appointments
+  this.appointementService.getNextAppointment(patient.id).subscribe(appointment => {
+    if (appointment) {
+      // Call service to send email reminder
+      this.appointementService.sendReminderEmail(patient.email, appointment).subscribe({
+        next: () => {
+          alert('Reminder email sent successfully!');
+        },
+        error: () => {
+          alert('Failed to send reminder email.');
+        }
+      });
+    } else {
+      alert('No upcoming appointment found for this patient.');
+    }
+  }, err => {
+    alert('Error fetching appointment info.');
+  });
+}
   loadPatients() {
     this.patientService.getPatients().subscribe({
       next: (data: Patient[]) => {

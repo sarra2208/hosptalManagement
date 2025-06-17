@@ -39,6 +39,7 @@ export class LoginComponent implements AfterContentInit {
         console.log('Login success:', res);
         localStorage.setItem('token', res.token);
         localStorage.setItem('role',res?.user?.role) 
+        localStorage.setItem("connectedUser",res?.user?.username);
         if (res?.user?.role!="admin") {
                  this.router.navigate(['/clinic/list']);
         }else{// store JWT token

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ClinicService } from '../../clinic-management/clinic.service';
 import { StuffService } from '../../stuff-management/stuff.service';
 import { Appointment } from '../appointment';
+import { AppointementService } from '../appointement.service';
+import { PatientService } from '../../../services/patient.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment',
@@ -9,12 +12,15 @@ import { Appointment } from '../appointment';
   styleUrls: ['./appointment.component.scss']
 })
 export class AppointmentComponent implements OnInit {
-  constructor(private cliniService : ClinicService,private suffService:StuffService){
+  constructor(private router:Router,private patientService: PatientService ,private cliniService : ClinicService,private suffService:StuffService,private appointementService : AppointementService){
 
   }
   ngOnInit(): void {
     this.cliniService.getClinics().subscribe(res=>{
       this.clinics = res;
+    })
+    this.patientService.getPatients().subscribe(res=>{
+      this.patients = res;
     })
   }
     step = 1; 
@@ -22,7 +28,7 @@ export class AppointmentComponent implements OnInit {
   clinics:any;
 
   doctors :any;
-
+  patients : any;
   selectedClinic: any;
   selectedDoctor: any;
   selectedDate: string = '';
@@ -57,8 +63,14 @@ export class AppointmentComponent implements OnInit {
   }
 
   confirmAppointment() {
-     let ap : Appointment  ;
-    
+    let ap : Appointment  = new Appointment(0,this.selectedDate,this.selectedTime,"","","confirmed",this.selectedDoctor, localStorage.getItem("connectedUser")+"");  
+    this.appointementService.create(ap).subscribe(res=>{
+      console.log("done")
+      this.router.navigate(['/appointement/list']); 
+    })
+    console.log(ap)
+
+
     alert(`Appointment confirmed:\nClinic: ${this.selectedClinic.name}\nDoctor: Dr. ${this.selectedDoctor.name}\nDate: ${this.selectedDate}\nTime: ${this.selectedTime}`);
   }
 
